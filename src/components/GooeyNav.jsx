@@ -84,6 +84,9 @@ const GooeyNav = ({
     textRef.current.innerText = element.innerText;
   };
   const handleClick = (e, index) => {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
     const liEl = e.currentTarget;
     if (activeIndex === index) return;
     setActiveIndex(index);
@@ -100,14 +103,16 @@ const GooeyNav = ({
     if (filterRef.current) {
       makeParticles(filterRef.current);
     }
+    const targetId = items[index].href.substring(1);
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth' });
+    }
   };
   const handleKeyDown = (e, index) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      const liEl = e.currentTarget.parentElement;
-      if (liEl) {
-        handleClick({ currentTarget: liEl }, index);
-      }
+      handleClick(e, index);
     }
   };
   useEffect(() => {
@@ -157,9 +162,10 @@ const GooeyNav = ({
           .effect.filter::before {
             content: "";
             position: absolute;
-            inset: -75px;
+            inset: -6px -12px;
             z-index: -2;
             background: black;
+            border-radius: 9999px;
           }
           .effect.filter::after {
             content: "";
@@ -259,7 +265,7 @@ const GooeyNav = ({
             content: "";
             position: absolute;
             inset: 0;
-            border-radius: 8px;
+            border-radius: 9999px;
             background: white;
             opacity: 0;
             transform: scale(0);
