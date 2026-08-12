@@ -1,5 +1,7 @@
-import TiltedCard from './TiltedCard'
-
+import TiltedCard from './TiltedCard';
+import peerup from '../assets/peerup.png';
+import aetherbook from '../assets/properaetherbook.png';
+import designora from '../assets/Designermaketplace.jpg';
 function Project() {
   return (
     <section id="projects" className="py-20 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full flex flex-col">
@@ -12,7 +14,7 @@ function Project() {
         <div className="bg-zinc-900/80 backdrop-blur-md border border-zinc-700/50 rounded-2xl p-6 text-white flex flex-col justify-between shadow-lg hover:shadow-violet-500/10 transition-all duration-300 transform hover:-translate-y-1 h-full">
           <div className="flex justify-center w-full mb-6">
             <TiltedCard
-              imageSrc="/src/assets/peerup.png"
+              imageSrc={peerup}
               altText="PeerUp"
               captionText="PeerUp"
               containerHeight="220px"
@@ -54,7 +56,7 @@ function Project() {
         <div className="bg-zinc-900/80 backdrop-blur-md border border-zinc-700/50 rounded-2xl p-6 text-white flex flex-col justify-between shadow-lg hover:shadow-violet-500/10 transition-all duration-300 transform hover:-translate-y-1 h-full">
           <div className="flex justify-center w-full mb-6">
             <TiltedCard
-              imageSrc="/src/assets/properaetherbook.png"
+              imageSrc={aetherbook}
               altText="Aetherbook"
               captionText="Aetherbook"
               containerHeight="220px"
@@ -96,7 +98,7 @@ function Project() {
         <div className="bg-zinc-900/80 backdrop-blur-md border border-zinc-700/50 rounded-2xl p-6 text-white flex flex-col justify-between shadow-lg hover:shadow-violet-500/10 transition-all duration-300 transform hover:-translate-y-1 h-full">
           <div className="flex justify-center w-full mb-6">
             <TiltedCard
-              imageSrc="/src/assets/Designermaketplace.jpg"
+              imageSrc={designora}
               altText="Designora"
               captionText="Designora"
               containerHeight="220px"
