@@ -32,6 +32,7 @@ function Contact() {
               className="bg-zinc-800 hover:bg-violet-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 border border-zinc-760 hover:border-violet-500 shadow-md transform hover:-translate-y-0.5"
             >
               Fiverr (Freelance)
+              
             </a>
             <a 
               href="mailto:mdon85329@gmail.com?subject=Hello" 
