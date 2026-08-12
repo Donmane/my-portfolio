@@ -2,8 +2,8 @@ import TiltedCard from './TiltedCard'
 
 function Project() {
   return (
-    <section id="projects" className="py-20 px-6 max-w-6xl mx-auto w-full flex flex-col">
-      <h2 className="text-4xl font-extrabold text-white tracking-tight mb-12 text-center">
+    <section id="projects" className="py-20 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full flex flex-col">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-12 text-center">
         Featured Projects
       </h2>
 

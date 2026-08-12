@@ -1,9 +1,9 @@
 
 function Contact() {
   return (
-    <section id="contact" className="py-20 px-6 max-w-4xl mx-auto w-full">
+    <section id="contact" className="py-20 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full">
       <div className="bg-zinc-900/80 backdrop-blur-md border border-zinc-700/50 rounded-3xl p-8 md:p-12 text-white text-center shadow-xl flex flex-col items-center gap-6">
-        <h2 className="text-4xl font-extrabold text-white tracking-tight">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight text-center">
           Let's work together
         </h2>
         <div className="w-full flex flex-col items-center gap-4">
@@ -31,7 +31,7 @@ function Contact() {
               rel="noreferrer" 
               className="bg-zinc-800 hover:bg-violet-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 border border-zinc-760 hover:border-violet-500 shadow-md transform hover:-translate-y-0.5"
             >
-              Fiverr
+              Fiverr (Freelance)
             </a>
             <a 
               href="mailto:mdon85329@gmail.com?subject=Hello" 
