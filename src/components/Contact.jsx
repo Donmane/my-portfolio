@@ -13,7 +13,7 @@ function Contact() {
               href="https://github.com/Donmane" 
               target="_blank" 
               rel="noreferrer" 
-              className="bg-zinc-800 hover:bg-violet-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 border border-zinc-750 hover:border-violet-500 shadow-md transform hover:-translate-y-0.5"
+              className="bg-zinc-800 hover:bg-violet-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 border border-zinc-750 hover:border-violet-500 shadow-md transform hover:-translate-y-0.5 will-change-transform"
             >
               GitHub
             </a>
@@ -21,7 +21,7 @@ function Contact() {
               href="https://www.linkedin.com/in/daniel-edith-agoye-30ba3a411" 
               target="_blank" 
               rel="noreferrer" 
-              className="bg-zinc-800 hover:bg-violet-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 border border-zinc-755 hover:border-violet-500 shadow-md transform hover:-translate-y-0.5"
+              className="bg-zinc-800 hover:bg-violet-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 border border-zinc-755 hover:border-violet-500 shadow-md transform hover:-translate-y-0.5 will-change-transform"
             >
               LinkedIn
             </a>
@@ -29,14 +29,14 @@ function Contact() {
               href="https://www.fiverr.com/danny_alvis/buying?source=avatar_menu_profile" 
               target="_blank" 
               rel="noreferrer" 
-              className="bg-zinc-800 hover:bg-violet-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 border border-zinc-760 hover:border-violet-500 shadow-md transform hover:-translate-y-0.5"
+              className="bg-zinc-800 hover:bg-violet-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 border border-zinc-760 hover:border-violet-500 shadow-md transform hover:-translate-y-0.5 will-change-transform"
             >
               Fiverr (Freelance)
               
             </a>
             <a 
               href="mailto:mdon85329@gmail.com?subject=Hello" 
-              className="bg-violet-600 hover:bg-violet-750 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 border border-violet-500 shadow-md transform hover:-translate-y-0.5"
+              className="bg-violet-600 hover:bg-violet-750 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 border border-violet-500 shadow-md transform hover:-translate-y-0.5 will-change-transform"
             >
               Send Email
             </a>

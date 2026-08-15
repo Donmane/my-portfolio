@@ -11,7 +11,7 @@ function Project() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
         {/* Project 1 */}
-        <div className="bg-zinc-900/80 backdrop-blur-md border border-zinc-700/50 rounded-2xl p-6 text-white flex flex-col justify-between shadow-lg hover:shadow-violet-500/10 transition-all duration-300 transform hover:-translate-y-1 h-full">
+        <div className="bg-zinc-900/80 backdrop-blur-md border border-zinc-700/50 rounded-2xl p-6 text-white flex flex-col justify-between shadow-lg hover:shadow-violet-500/10 transition-all duration-300 transform hover:-translate-y-1 h-full will-change-transform">
           <div className="flex justify-center w-full mb-6">
             <TiltedCard
               imageSrc={peerup}
@@ -53,7 +53,7 @@ function Project() {
         </div>
 
         {/* Project 2 */}
-        <div className="bg-zinc-900/80 backdrop-blur-md border border-zinc-700/50 rounded-2xl p-6 text-white flex flex-col justify-between shadow-lg hover:shadow-violet-500/10 transition-all duration-300 transform hover:-translate-y-1 h-full">
+        <div className="bg-zinc-900/80 backdrop-blur-md border border-zinc-700/50 rounded-2xl p-6 text-white flex flex-col justify-between shadow-lg hover:shadow-violet-500/10 transition-all duration-300 transform hover:-translate-y-1 h-full will-change-transform">
           <div className="flex justify-center w-full mb-6">
             <TiltedCard
               imageSrc={aetherbook}
@@ -95,7 +95,7 @@ function Project() {
         </div>
 
         {/* Project 3 */}
-        <div className="bg-zinc-900/80 backdrop-blur-md border border-zinc-700/50 rounded-2xl p-6 text-white flex flex-col justify-between shadow-lg hover:shadow-violet-500/10 transition-all duration-300 transform hover:-translate-y-1 h-full">
+        <div className="bg-zinc-900/80 backdrop-blur-md border border-zinc-700/50 rounded-2xl p-6 text-white flex flex-col justify-between shadow-lg hover:shadow-violet-500/10 transition-all duration-300 transform hover:-translate-y-1 h-full will-change-transform">
           <div className="flex justify-center w-full mb-6">
             <TiltedCard
               imageSrc={designora}

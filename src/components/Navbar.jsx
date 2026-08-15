@@ -58,7 +58,7 @@ export default function Navbar() {
 
       {/* Mobile Sidebar Navigation Drawer */}
       <div
-        className={`fixed inset-y-0 right-0 w-64 bg-zinc-950 p-6 z-50 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col ${
+        className={`fixed inset-y-0 right-0 w-64 bg-zinc-950 p-6 z-50 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col will-change-transform ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >

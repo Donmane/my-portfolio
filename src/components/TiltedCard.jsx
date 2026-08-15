@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
 
 const springValues = {
@@ -23,6 +23,20 @@ export default function TiltedCard({
   displayOverlayContent = false
 }) {
   const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotateX = useSpring(useMotionValue(0), springValues);
@@ -94,14 +108,16 @@ export default function TiltedCard({
         style={{
           width: imageWidth,
           height: imageHeight,
-          rotateX,
-          rotateY,
-          scale
+          rotateX: isVisible ? rotateX : 0,
+          rotateY: isVisible ? rotateY : 0,
+          scale: isVisible ? scale : 1,
+          willChange: 'transform'
         }}
       >
         <motion.img
           src={imageSrc}
           alt={altText}
+          loading="lazy"
           className="absolute top-0 left-0 object-cover rounded-[15px] will-change-transform [transform:translateZ(0)]"
           style={{
             width: imageWidth,
@@ -120,10 +136,11 @@ export default function TiltedCard({
         <motion.figcaption
           className="pointer-events-none absolute left-0 top-0 rounded-[4px] bg-white px-[10px] py-[4px] text-[10px] text-[#2d2d2d] opacity-0 z-[3] hidden sm:block"
           style={{
-            x,
-            y,
-            opacity,
-            rotate: rotateFigcaption
+            x: isVisible ? x : 0,
+            y: isVisible ? y : 0,
+            opacity: isVisible ? opacity : 0,
+            rotate: isVisible ? rotateFigcaption : 0,
+            willChange: 'transform'
           }}
         >
           {captionText}

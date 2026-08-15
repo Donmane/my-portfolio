@@ -1,5 +1,5 @@
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const vertexShader = `
 attribute vec2 uv;
@@ -37,7 +37,7 @@ uniform bool uTransparent;
 
 varying vec2 vUv;
 
-#define NUM_LAYER 4.0
+#define NUM_LAYER 2.0
 #define STAR_COLOR_CUTOFF 0.2
 #define MAT45 mat2(0.7071, -0.7071, 0.7071, 0.7071)
 #define PERIOD 3.0
@@ -194,8 +194,27 @@ export default function Galaxy({
   const targetMouseActive = useRef(0.0);
   const smoothMouseActive = useRef(0.0);
 
+  const [shouldInit, setShouldInit] = useState(false);
+
   useEffect(() => {
-    if (!ctnDom.current) return;
+    const handleInit = () => {
+      if (typeof requestIdleCallback !== 'undefined') {
+        requestIdleCallback(() => setShouldInit(true));
+      } else {
+        setTimeout(() => setShouldInit(true), 200);
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      handleInit();
+    } else {
+      window.addEventListener('load', handleInit);
+      return () => window.removeEventListener('load', handleInit);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!shouldInit || !ctnDom.current) return;
     const ctn = ctnDom.current;
     const renderer = new Renderer({
       alpha: transparent,
@@ -259,8 +278,10 @@ export default function Galaxy({
 
     const mesh = new Mesh(gl, { geometry, program });
     let animateId;
+    let isLooping = true;
 
     function update(t) {
+      if (!isLooping) return;
       animateId = requestAnimationFrame(update);
       if (!disableAnimation) {
         program.uniforms.uTime.value = t * 0.001;
@@ -279,7 +300,27 @@ export default function Galaxy({
 
       renderer.render({ scene: mesh });
     }
+    
+    // Start loop
     animateId = requestAnimationFrame(update);
+    
+    // Setup IntersectionObserver to play/pause WebGL updates
+    let observer;
+    if (typeof IntersectionObserver !== 'undefined') {
+      observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          if (!isLooping) {
+            isLooping = true;
+            animateId = requestAnimationFrame(update);
+          }
+        } else {
+          isLooping = false;
+          cancelAnimationFrame(animateId);
+        }
+      }, { threshold: 0 });
+      observer.observe(ctn);
+    }
+    
     ctn.appendChild(gl.canvas);
 
     function handleMouseMove(e) {
@@ -300,16 +341,25 @@ export default function Galaxy({
     }
 
     return () => {
+      isLooping = false;
       cancelAnimationFrame(animateId);
+      if (observer) {
+        observer.disconnect();
+      }
       window.removeEventListener('resize', resize);
       if (mouseInteraction) {
         ctn.removeEventListener('mousemove', handleMouseMove);
         ctn.removeEventListener('mouseleave', handleMouseLeave);
       }
-      ctn.removeChild(gl.canvas);
+      try {
+        ctn.removeChild(gl.canvas);
+      } catch (e) {
+        // Safe check
+      }
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, [
+    shouldInit,
     focal,
     rotation,
     starSpeed,

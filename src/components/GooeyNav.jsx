@@ -194,6 +194,7 @@ const GooeyNav = ({
             height: 20px;
             border-radius: 9999px;
             transform-origin: center;
+            will-change: transform;
           }
           .particle {
             --time: 5s;
@@ -201,11 +202,13 @@ const GooeyNav = ({
             top: calc(50% - 8px);
             left: calc(50% - 8px);
             animation: particle calc(var(--time)) ease 1 -350ms;
+            will-change: transform;
           }
           .point {
             background: var(--color);
             opacity: 1;
             animation: point calc(var(--time)) ease 1 -350ms;
+            will-change: transform;
           }
           @keyframes particle {
             0% {
