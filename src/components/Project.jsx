@@ -1,7 +1,7 @@
 import TiltedCard from './TiltedCard';
 import peerup from '../assets/peerup.png';
 import aetherbook from '../assets/properaetherbook.png';
-import designora from '../assets/Designermaketplace.jpg';
+import designora from '../assets/designer.png';
 function Project() {
   return (
     <section id="projects" className="py-20 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full flex flex-col">
