@@ -1,27 +1,63 @@
+import { ArrowDown, Mail, FolderGit2 } from './Icons';
+
 function Hero() {
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section id="home" className="py-20 md:py-32 px-6 md:px-12 max-w-7xl mx-auto w-full flex flex-col items-center justify-center text-center min-h-[90vh]">
-      <h1 className="text-4xl md:text-7xl font-extrabold text-white tracking-tight leading-tight text-center">
-        Edith-Agoye Daniel Olamide
+    <section 
+      id="home" 
+      className="relative min-h-[85vh] flex flex-col items-center justify-center text-center px-6 md:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 md:pb-24 max-w-5xl mx-auto w-full"
+    >
+      {/* Main Headline - Bold, Crisp High-Contrast Typography */}
+      <h1 className="text-5xl sm:text-7xl md:text-8xl font-black text-slate-100 tracking-tight leading-[1.05] max-w-5xl">
+        Daniel Edith-Agoye
       </h1>
-      <p className="text-xl md:text-2xl text-purple-300 font-semibold mt-6 tracking-wide text-center">
-        Frontend Developer · Building for the web
+
+      {/* Subheading with Warm Galactic & Cyan Nebula Color Highlights */}
+      <p className="text-xl sm:text-2xl md:text-3xl text-slate-300 font-medium mt-6 max-w-3xl tracking-wide leading-snug">
+        Frontend Developer —{' '}
+        <span className="bg-gradient-to-r from-cyan-400 to-teal-300 bg-clip-text text-transparent font-bold">
+          React
+        </span>
+        ,{' '}
+        <span className="bg-gradient-to-r from-teal-300 to-cyan-400 bg-clip-text text-transparent font-bold">
+          Tailwind
+        </span>
+        ,{' '}
+        <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent font-bold">
+          Supabase
+        </span>
       </p>
-      <p className="text-lg text-gray-300 mt-2 max-w-xl text-center">
-        I build things that work.
+
+      {/* Concise Bio */}
+      <p className="text-base sm:text-lg md:text-xl text-slate-400 mt-5 max-w-2xl leading-relaxed font-normal">
+        Crafting fast, accessible, and responsive web applications with modern frontend engineering and intuitive user experiences.
       </p>
-      <div className="flex flex-col md:flex-row gap-4 mt-8 w-full md:w-auto">
+
+      {/* Call To Action Buttons */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10 w-full sm:w-auto">
+        {/* Primary Action: Warm Amber-to-Orange Gradient Button */}
         <button
-          onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-          className="w-full md:w-auto text-center bg-violet-600 hover:bg-violet-700 text-white font-bold py-3.5 px-8 rounded-full shadow-lg hover:shadow-violet-600/30 transition-all duration-300 transform hover:-translate-y-0.5 will-change-transform"
+          onClick={() => scrollToSection('projects')}
+          className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold py-3.5 px-8 rounded-full shadow-md hover:shadow-[0_0_25px_rgba(245,158,11,0.4)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base cursor-pointer"
         >
-          Contact Me
+          <FolderGit2 className="w-4 h-4 text-slate-950 transition-transform group-hover:rotate-12" />
+          <span>View Projects</span>
+          <ArrowDown className="w-4 h-4 text-slate-950 transition-transform group-hover:translate-y-0.5" />
         </button>
+
+        {/* Secondary Action: Dark Glassmorphism with Cyan Hover Accent */}
         <button
-          onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-          className="w-full md:w-auto text-center border-2 border-white/20 hover:border-violet-500 hover:text-white text-gray-300 font-bold py-3.5 px-8 rounded-full transition-all duration-300 transform hover:-translate-y-0.5 bg-transparent will-change-transform"
+          onClick={() => scrollToSection('contact')}
+          className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-slate-900/80 hover:bg-slate-850 text-slate-200 hover:text-cyan-300 font-semibold py-3.5 px-8 rounded-full border border-slate-700/60 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.25)] backdrop-blur-md transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base cursor-pointer"
         >
-          View my Projects
+          <Mail className="w-4 h-4 text-slate-400 group-hover:text-cyan-400 transition-colors" />
+          <span>Contact Me</span>
         </button>
       </div>
     </section>

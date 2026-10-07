@@ -3,22 +3,21 @@ import { motion, useMotionValue, useSpring } from 'motion/react';
 
 const springValues = {
   damping: 30,
-  stiffness: 100,
-  mass: 2
+  stiffness: 120,
+  mass: 1.5
 };
 
 export default function TiltedCard({
   imageSrc,
   altText = 'Tilted card image',
   captionText = '',
-  containerHeight = '300px',
+  containerHeight = '230px',
   containerWidth = '100%',
-  imageHeight = '300px',
-  imageWidth = '300px',
-  scaleOnHover = 1.1,
-  rotateAmplitude = 14,
-  showMobileWarning = true,
-  showTooltip = true,
+  imageHeight = '230px',
+  imageWidth = '100%',
+  scaleOnHover = 1.04,
+  rotateAmplitude = 10,
+  showTooltip = false,
   overlayContent = null,
   displayOverlayContent = false
 }) {
@@ -88,7 +87,7 @@ export default function TiltedCard({
   return (
     <figure
       ref={ref}
-      className="relative w-full h-full [perspective:800px] flex flex-col items-center justify-center"
+      className="relative w-full h-full [perspective:900px] flex flex-col items-center justify-center overflow-hidden rounded-xl bg-zinc-950/60 border border-white/10 group/card"
       style={{
         height: containerHeight,
         width: containerWidth
@@ -97,14 +96,8 @@ export default function TiltedCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {showMobileWarning && (
-        <div className="absolute top-4 text-center text-sm block sm:hidden">
-          This effect is not optimized for mobile. Check on desktop.
-        </div>
-      )}
-
       <motion.div
-        className="relative [transform-style:preserve-3d]"
+        className="relative w-full h-full [transform-style:preserve-3d]"
         style={{
           width: imageWidth,
           height: imageHeight,
@@ -118,12 +111,11 @@ export default function TiltedCard({
           src={imageSrc}
           alt={altText}
           loading="lazy"
-          className="absolute top-0 left-0 object-cover rounded-[15px] will-change-transform [transform:translateZ(0)]"
-          style={{
-            width: imageWidth,
-            height: imageHeight
-          }}
+          className="absolute inset-0 w-full h-full object-cover object-top rounded-xl brightness-105 contrast-105 filter transition-all duration-300 group-hover/card:brightness-110"
         />
+
+        {/* Subtle Gradient Shadow Overlay at bottom of image */}
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent rounded-xl pointer-events-none" />
 
         {displayOverlayContent && overlayContent && (
           <motion.div className="absolute top-0 left-0 z-[2] will-change-transform [transform:translateZ(30px)]">
@@ -134,7 +126,7 @@ export default function TiltedCard({
 
       {showTooltip && (
         <motion.figcaption
-          className="pointer-events-none absolute left-0 top-0 rounded-[4px] bg-white px-[10px] py-[4px] text-[10px] text-[#2d2d2d] opacity-0 z-[3] hidden sm:block"
+          className="pointer-events-none absolute left-3 top-3 rounded-full bg-zinc-900/90 border border-zinc-700 px-3 py-1 text-xs font-medium text-zinc-200 backdrop-blur-md opacity-0 z-[3] hidden sm:block shadow-lg"
           style={{
             x: isVisible ? x : 0,
             y: isVisible ? y : 0,

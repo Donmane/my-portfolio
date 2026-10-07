@@ -2,19 +2,29 @@ import { useRef, useEffect, useState } from 'react';
 
 const GooeyNav = ({
   items,
-  animationTime = 600,
-  particleCount = 15,
-  particleDistances = [90, 10],
-  particleR = 100,
-  timeVariance = 300,
-  colors = [1, 2, 3, 1, 2, 3, 1, 4],
-  initialActiveIndex = 0
+  animationTime = 500,
+  particleCount = 12,
+  particleDistances = [80, 10],
+  particleR = 90,
+  timeVariance = 250,
+  colors = ['#06b6d4', '#14b8a6', '#f59e0b', '#ffffff', '#e2e8f0'],
+  initialActiveIndex = 0,
+  activeSectionIndex = null,
+  onItemClick = null
 }) => {
   const containerRef = useRef(null);
   const navRef = useRef(null);
   const filterRef = useRef(null);
   const textRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
+  const [activeIndex, setActiveIndex] = useState(
+    activeSectionIndex !== null ? activeSectionIndex : initialActiveIndex
+  );
+
+  useEffect(() => {
+    if (activeSectionIndex !== null && activeSectionIndex !== activeIndex) {
+      setActiveIndex(activeSectionIndex);
+    }
+  }, [activeSectionIndex]);
 
   const noise = (n = 1) => n / 2 - Math.random() * n;
   const getXY = (distance, pointIndex, totalPoints) => {
@@ -51,7 +61,7 @@ const GooeyNav = ({
         particle.style.setProperty('--end-y', `${p.end[1]}px`);
         particle.style.setProperty('--time', `${p.time}ms`);
         particle.style.setProperty('--scale', `${p.scale}`);
-        particle.style.setProperty('--color', `var(--color-${p.color}, white)`);
+        particle.style.setProperty('--color', p.color);
         particle.style.setProperty('--rotate', `${p.rotate}deg`);
         point.classList.add('point');
         particle.appendChild(point);
@@ -70,7 +80,7 @@ const GooeyNav = ({
     }
   };
   const updateEffectPosition = element => {
-    if (!containerRef.current || !filterRef.current || !textRef.current) return;
+    if (!containerRef.current || !filterRef.current || !textRef.current || !element) return;
     const containerRect = containerRef.current.getBoundingClientRect();
     const pos = element.getBoundingClientRect();
     const styles = {
@@ -83,38 +93,47 @@ const GooeyNav = ({
     Object.assign(textRef.current.style, styles);
     textRef.current.innerText = element.innerText;
   };
+
   const handleClick = (e, index) => {
     if (e && typeof e.preventDefault === 'function') {
       e.preventDefault();
     }
     const liEl = e.currentTarget;
-    if (activeIndex === index) return;
-    setActiveIndex(index);
-    updateEffectPosition(liEl);
-    if (filterRef.current) {
-      const particles = filterRef.current.querySelectorAll('.particle');
-      particles.forEach(p => filterRef.current.removeChild(p));
+    if (activeIndex !== index) {
+      setActiveIndex(index);
+      updateEffectPosition(liEl);
+      if (filterRef.current) {
+        const particles = filterRef.current.querySelectorAll('.particle');
+        particles.forEach(p => filterRef.current.removeChild(p));
+      }
+      if (textRef.current) {
+        textRef.current.classList.remove('active');
+        void textRef.current.offsetWidth;
+        textRef.current.classList.add('active');
+      }
+      if (filterRef.current) {
+        makeParticles(filterRef.current);
+      }
     }
-    if (textRef.current) {
-      textRef.current.classList.remove('active');
-      void textRef.current.offsetWidth;
-      textRef.current.classList.add('active');
-    }
-    if (filterRef.current) {
-      makeParticles(filterRef.current);
-    }
-    const targetId = items[index].href.substring(1);
-    const targetEl = document.getElementById(targetId);
-    if (targetEl) {
-      targetEl.scrollIntoView({ behavior: 'smooth' });
+
+    if (onItemClick) {
+      onItemClick(items[index], index);
+    } else {
+      const targetId = items[index].href.substring(1);
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
+
   const handleKeyDown = (e, index) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       handleClick(e, index);
     }
   };
+
   useEffect(() => {
     if (!navRef.current || !containerRef.current) return;
     const activeLi = navRef.current.querySelectorAll('li')[activeIndex];
@@ -134,7 +153,6 @@ const GooeyNav = ({
 
   return (
     <>
-      {/* This effect is quite difficult to recreate faithfully using Tailwind, so a style tag is a necessary workaround */}
       <style>
         {`
           :root {
@@ -149,36 +167,37 @@ const GooeyNav = ({
             z-index: 1;
           }
           .effect.text {
-            color: white;
-            transition: color 0.3s ease;
+            color: #ffffff;
+            transition: color 0.25s ease;
           }
           .effect.text.active {
-            color: black;
+            color: #ffffff;
+            font-weight: 700;
           }
           .effect.filter {
-            filter: blur(7px) contrast(100) blur(0);
+            filter: blur(6px) contrast(100) blur(0);
             mix-blend-mode: lighten;
           }
           .effect.filter::before {
             content: "";
             position: absolute;
-            inset: -6px -12px;
+            inset: -4px -8px;
             z-index: -2;
-            background: black;
+            background: #020617;
             border-radius: 9999px;
           }
           .effect.filter::after {
             content: "";
             position: absolute;
             inset: 0;
-            background: white;
+            background: #06b6d4;
             transform: scale(0);
             opacity: 0;
             z-index: -1;
             border-radius: 9999px;
           }
           .effect.active::after {
-            animation: pill 0.3s ease both;
+            animation: pill 0.25s ease both;
           }
           @keyframes pill {
             to {
@@ -190,14 +209,14 @@ const GooeyNav = ({
           .point {
             display: block;
             opacity: 0;
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             border-radius: 9999px;
             transform-origin: center;
             will-change: transform;
           }
           .particle {
-            --time: 5s;
+            --time: 4s;
             position: absolute;
             top: calc(50% - 8px);
             left: calc(50% - 8px);
@@ -257,8 +276,7 @@ const GooeyNav = ({
             }
           }
           li.active {
-            color: black;
-            text-shadow: none;
+            color: #ffffff;
           }
           li.active::after {
             opacity: 1;
@@ -269,10 +287,12 @@ const GooeyNav = ({
             position: absolute;
             inset: 0;
             border-radius: 9999px;
-            background: white;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(245, 158, 11, 0.25));
+            border: 1px solid rgba(6, 182, 212, 0.5);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
             opacity: 0;
             transform: scale(0);
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             z-index: -1;
           }
         `}
@@ -281,24 +301,23 @@ const GooeyNav = ({
         <nav className="flex relative" style={{ transform: 'translate3d(0,0,0.01px)' }}>
           <ul
             ref={navRef}
-            className="flex gap-8 list-none p-0 px-4 m-0 relative z-[3]"
+            className="flex gap-1.5 sm:gap-2.5 list-none p-1 m-0 relative z-[3]"
             style={{
-              color: 'white',
-              textShadow: '0 1px 1px hsl(205deg 30% 10% / 0.2)'
+              color: 'white'
             }}
           >
             {items.map((item, index) => (
               <li
                 key={index}
-                className={`rounded-full relative cursor-pointer transition-[background-color_color_box-shadow] duration-300 ease shadow-[0_0_0.5px_1.5px_transparent] text-white ${
-                  activeIndex === index ? 'active' : ''
+                className={`rounded-full relative cursor-pointer transition-all duration-200 ease text-slate-300 hover:text-white ${
+                  activeIndex === index ? 'active font-bold text-white' : 'hover:bg-slate-800/50'
                 }`}
               >
                 <a
                   onClick={e => handleClick(e, index)}
                   href={item.href}
                   onKeyDown={e => handleKeyDown(e, index)}
-                  className="outline-none py-[0.6em] px-[1em] inline-block"
+                  className="outline-none py-1.5 px-3.5 inline-block text-xs sm:text-sm font-medium tracking-wide"
                 >
                   {item.label}
                 </a>
