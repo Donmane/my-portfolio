@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Menu, X, FolderGit2, User, Wrench, Mail, Home } from './Icons';
 import GooeyNav from './GooeyNav';
 import logoImg from '../assets/Logo.png';
@@ -14,28 +14,87 @@ const items = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
+  const isManualScrolling = useRef(false);
+  const manualScrollTimer = useRef(null);
 
-  // Scroll Spy to detect active section in viewport
+  // Smooth scroll to a target section with temporary scroll spy lock
+  const scrollToSection = useCallback((id, index) => {
+    setActiveSectionIndex(index);
+    isManualScrolling.current = true;
+    if (manualScrollTimer.current) clearTimeout(manualScrollTimer.current);
+
+    const targetEl = document.getElementById(id);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    manualScrollTimer.current = setTimeout(() => {
+      isManualScrolling.current = false;
+    }, 850);
+  }, []);
+
+  // Precise Scroll Spy to detect active section in viewport
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
+    let rafId = null;
 
+    const updateActiveSection = () => {
+      if (isManualScrolling.current) return;
+
+      // 1. If near the very top of the page, section 0 ('Home') is active
+      if (window.scrollY < 100) {
+        setActiveSectionIndex(0);
+        return;
+      }
+
+      // 2. If scrolled near the bottom of the page, the last section ('Contact') is active
+      const isAtBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 70;
+      if (isAtBottom) {
+        setActiveSectionIndex(items.length - 1);
+        return;
+      }
+
+      // 3. Focal line at 35% of viewport height
+      const focalLine = window.innerHeight * 0.35;
+
+      for (let i = 0; i < items.length; i++) {
+        const el = document.getElementById(items[i].id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= focalLine && rect.bottom > focalLine) {
+            setActiveSectionIndex(i);
+            return;
+          }
+        }
+      }
+
+      // 4. Fallback: closest section above focal line
       for (let i = items.length - 1; i >= 0; i--) {
         const el = document.getElementById(items[i].id);
         if (el) {
-          const top = el.offsetTop;
-          if (scrollPosition >= top) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= focalLine) {
             setActiveSectionIndex(i);
-            break;
+            return;
           }
         }
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    const handleScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateActiveSection);
+    };
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updateActiveSection(); // Initial check on mount
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', handleScroll);
+      if (manualScrollTimer.current) clearTimeout(manualScrollTimer.current);
+    };
   }, []);
 
   // Lock body scroll when mobile menu is open
@@ -53,11 +112,7 @@ export default function Navbar() {
   const handleLinkClick = (e, id, index) => {
     e.preventDefault();
     setIsOpen(false);
-    setActiveSectionIndex(index);
-    const targetEl = document.getElementById(id);
-    if (targetEl) {
-      targetEl.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToSection(id, index);
   };
 
   return (
@@ -68,11 +123,7 @@ export default function Navbar() {
           items={items} 
           activeSectionIndex={activeSectionIndex}
           onItemClick={(item, index) => {
-            setActiveSectionIndex(index);
-            const targetEl = document.getElementById(item.id);
-            if (targetEl) {
-              targetEl.scrollIntoView({ behavior: 'smooth' });
-            }
+            scrollToSection(item.id, index);
           }}
         />
       </header>
