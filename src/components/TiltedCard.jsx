@@ -87,7 +87,7 @@ export default function TiltedCard({
   return (
     <figure
       ref={ref}
-      className="relative w-full h-full [perspective:900px] flex flex-col items-center justify-center overflow-hidden rounded-xl bg-zinc-950/60 border border-white/10 group/card"
+      className="relative w-full h-full [perspective:900px] flex flex-col items-center justify-center overflow-hidden rounded-xl bg-zinc-950/60 border border-[#ACADBC]/20 group/card"
       style={{
         height: containerHeight,
         width: containerWidth
@@ -126,7 +126,7 @@ export default function TiltedCard({
 
       {showTooltip && (
         <motion.figcaption
-          className="pointer-events-none absolute left-3 top-3 rounded-full bg-zinc-900/90 border border-zinc-700 px-3 py-1 text-xs font-medium text-zinc-200 backdrop-blur-md opacity-0 z-[3] hidden sm:block shadow-lg"
+          className="pointer-events-none absolute left-3 top-3 rounded-full bg-[#2B2D42]/90 border border-[#ACADBC]/30 px-3 py-1 text-xs font-medium text-[#F8FAFC] backdrop-blur-md opacity-0 z-[3] hidden sm:block shadow-lg"
           style={{
             x: isVisible ? x : 0,
             y: isVisible ? y : 0,

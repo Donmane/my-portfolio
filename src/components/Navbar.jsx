@@ -136,7 +136,7 @@ export default function Navbar() {
           className="flex items-center gap-2.5 text-left focus:outline-none cursor-pointer"
         >
           <img src={logoImg} alt="DE Logo" className="w-8 h-8 rounded-full border border-slate-700" />
-          <span className="font-bold text-sm tracking-tight text-white">
+          <span className="font-bold text-sm tracking-tight text-[#F8FAFC]">
             Daniel Edith-Agoye
           </span>
         </button>
@@ -145,9 +145,9 @@ export default function Navbar() {
         <button
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle navigation menu"
-          className="p-2 bg-slate-900 border border-slate-800 rounded-full text-slate-200 hover:text-white hover:border-cyan-400 shadow-md backdrop-blur-md transition-colors focus:outline-none cursor-pointer"
+          className="p-2 bg-slate-900 border border-slate-800 rounded-full text-[#ACADBC] hover:text-[#F8FAFC] hover:border-[#78FECF] shadow-md backdrop-blur-md transition-colors focus:outline-none cursor-pointer"
         >
-          {isOpen ? <X className="w-5 h-5 text-cyan-400" /> : <Menu className="w-5 h-5" />}
+          {isOpen ? <X className="w-5 h-5 text-[#78FECF]" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
@@ -170,12 +170,12 @@ export default function Navbar() {
           <div className="flex items-center justify-between pb-6 border-b border-slate-800">
             <div className="flex items-center gap-2.5">
               <img src={logoImg} alt="Logo" className="w-7 h-7 rounded-full border border-slate-700" />
-              <span className="font-bold text-sm text-white">Navigation</span>
+              <span className="font-bold text-sm text-[#F8FAFC]">Navigation</span>
             </div>
             <button
               onClick={() => setIsOpen(false)}
               aria-label="Close navigation menu"
-              className="p-1.5 text-slate-400 hover:text-white rounded-lg transition-colors focus:outline-none cursor-pointer"
+              className="p-1.5 text-[#ACADBC] hover:text-[#F8FAFC] rounded-lg transition-colors focus:outline-none cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -193,11 +193,11 @@ export default function Navbar() {
                   onClick={(e) => handleLinkClick(e, item.id, index)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200 ${
                     isActive
-                      ? 'bg-gradient-to-r from-cyan-500/15 to-amber-500/15 border border-cyan-500/40 text-cyan-300 font-semibold shadow-sm'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-900 border border-transparent'
+                      ? 'bg-[#2B2D42] border border-[#78FECF]/40 text-[#78FECF] font-semibold shadow-sm'
+                      : 'text-[#ACADBC] hover:text-[#F8FAFC] hover:bg-[#2B2D42]/40 border border-transparent'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-cyan-400' : 'text-slate-500'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#78FECF]' : 'text-[#ACADBC]'}`} />
                   <span>{item.label}</span>
                 </a>
               );
@@ -209,7 +209,7 @@ export default function Navbar() {
         <div className="pt-6 border-t border-slate-800 flex flex-col gap-3">
           <button
             onClick={(e) => handleLinkClick(e, 'contact', 4)}
-            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold py-2.5 px-4 rounded-xl text-xs text-center shadow-md shadow-amber-500/20 cursor-pointer transition-all"
+            className="w-full bg-[#0C7489] hover:bg-[#0C7489]/90 hover:shadow-[0_0_15px_rgba(172,252,217,0.35)] text-[#F8FAFC] font-bold py-2.5 px-4 rounded-xl text-xs text-center shadow-md cursor-pointer transition-all border border-transparent hover:border-[#ACFCD9]"
           >
             Get In Touch
           </button>

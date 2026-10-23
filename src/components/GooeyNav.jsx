@@ -7,7 +7,7 @@ const GooeyNav = ({
   particleDistances = [70, 10],
   particleR = 90,
   timeVariance = 200,
-  colors = ['#06b6d4', '#14b8a6', '#f59e0b', '#ffffff', '#38bdf8'],
+  colors = ['#78FECF', '#ACFCD9', '#0C7489', '#F8FAFC', '#2B2D42'],
   activeSectionIndex = 0,
   onItemClick = null
 }) => {
@@ -217,9 +217,9 @@ const GooeyNav = ({
             width: `${pillStyle.width}px`,
             height: `${pillStyle.height}px`,
             opacity: pillStyle.opacity,
-            background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.22) 0%, rgba(245, 158, 11, 0.18) 100%)',
-            border: '1px solid rgba(6, 182, 212, 0.55)',
-            boxShadow: '0 0 20px -3px rgba(6, 182, 212, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.25)',
+            background: '#2B2D42',
+            border: '1px solid rgba(172, 252, 217, 0.35)',
+            boxShadow: '0 0 15px rgba(120, 254, 207, 0.25), inset 0 1px 1px rgba(248, 250, 252, 0.15)',
           }}
         />
 
@@ -245,8 +245,8 @@ const GooeyNav = ({
                     onKeyDown={(e) => handleKeyDown(e, index)}
                     className={`block outline-none py-1.5 px-3.5 text-xs sm:text-sm tracking-wide rounded-full transition-colors duration-200 cursor-pointer ${
                       isActive
-                        ? 'text-white font-bold drop-shadow-[0_0_12px_rgba(6,182,212,0.6)]'
-                        : 'text-slate-300 hover:text-white hover:bg-slate-800/40 font-medium'
+                        ? 'text-[#F8FAFC] font-bold drop-shadow-[0_0_8px_rgba(120,254,207,0.35)]'
+                        : 'text-[#ACADBC] hover:text-[#F8FAFC] hover:bg-[#2B2D42]/40 font-medium'
                     }`}
                   >
                     {item.label}
