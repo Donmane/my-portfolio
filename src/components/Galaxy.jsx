@@ -280,10 +280,13 @@ export default function Galaxy({
     let animateId;
     let isLooping = true;
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const shouldAnimate = !disableAnimation && !prefersReducedMotion;
+
     function update(t) {
       if (!isLooping) return;
-      animateId = requestAnimationFrame(update);
-      if (!disableAnimation) {
+      if (shouldAnimate) {
+        animateId = requestAnimationFrame(update);
         program.uniforms.uTime.value = t * 0.001;
         program.uniforms.uStarSpeed.value = (t * 0.001 * starSpeed) / 10.0;
       }
@@ -302,14 +305,32 @@ export default function Galaxy({
     }
     
     // Start loop
-    animateId = requestAnimationFrame(update);
+    if (shouldAnimate) {
+      animateId = requestAnimationFrame(update);
+    } else {
+      renderer.render({ scene: mesh });
+    }
+
+    // Pause when tab is hidden
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isLooping = false;
+        if (animateId) cancelAnimationFrame(animateId);
+      } else if (shouldAnimate) {
+        if (!isLooping) {
+          isLooping = true;
+          animateId = requestAnimationFrame(update);
+        }
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     
     // Setup IntersectionObserver to play/pause WebGL updates
     let observer;
     if (typeof IntersectionObserver !== 'undefined') {
       observer = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          if (!isLooping) {
+        if (entry.isIntersecting && !document.hidden) {
+          if (!isLooping && shouldAnimate) {
             isLooping = true;
             animateId = requestAnimationFrame(update);
           }
@@ -346,6 +367,7 @@ export default function Galaxy({
       if (observer) {
         observer.disconnect();
       }
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('resize', resize);
       if (mouseInteraction) {
         ctn.removeEventListener('mousemove', handleMouseMove);

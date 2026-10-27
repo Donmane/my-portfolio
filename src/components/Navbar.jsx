@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Menu, X, FolderGit2, User, Wrench, Mail, Home } from './Icons';
-import GooeyNav from './GooeyNav';
 import logoImg from '../assets/Logo.png';
 
 const items = [
@@ -30,7 +29,7 @@ export default function Navbar() {
 
     manualScrollTimer.current = setTimeout(() => {
       isManualScrolling.current = false;
-    }, 850);
+    }, 700);
   }, []);
 
   // Precise Scroll Spy to detect active section in viewport
@@ -40,13 +39,11 @@ export default function Navbar() {
     const updateActiveSection = () => {
       if (isManualScrolling.current) return;
 
-      // 1. If near the very top of the page, section 0 ('Home') is active
       if (window.scrollY < 100) {
         setActiveSectionIndex(0);
         return;
       }
 
-      // 2. If scrolled near the bottom of the page, the last section ('Contact') is active
       const isAtBottom =
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 70;
@@ -55,7 +52,6 @@ export default function Navbar() {
         return;
       }
 
-      // 3. Focal line at 35% of viewport height
       const focalLine = window.innerHeight * 0.35;
 
       for (let i = 0; i < items.length; i++) {
@@ -69,7 +65,6 @@ export default function Navbar() {
         }
       }
 
-      // 4. Fallback: closest section above focal line
       for (let i = items.length - 1; i >= 0; i--) {
         const el = document.getElementById(items[i].id);
         if (el) {
@@ -88,7 +83,7 @@ export default function Navbar() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    updateActiveSection(); // Initial check on mount
+    updateActiveSection();
 
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
@@ -116,38 +111,60 @@ export default function Navbar() {
   };
 
   return (
-    <>
-      {/* Desktop Floating Navigation Header */}
-      <header className="hidden md:flex fixed top-5 left-1/2 -translate-x-1/2 z-50 w-auto px-3 py-1.5 bg-slate-950/80 backdrop-blur-xl border border-slate-800 hover:border-slate-700 shadow-[0_4px_30px_rgba(0,0,0,0.6)] rounded-full items-center justify-center transition-all duration-300">
-        <GooeyNav 
-          items={items} 
-          activeSectionIndex={activeSectionIndex}
-          onItemClick={(item, index) => {
-            scrollToSection(item.id, index);
-          }}
-        />
-      </header>
-
-      {/* Mobile Top App Bar */}
-      <div className="md:hidden fixed top-0 inset-x-0 z-50 px-5 py-3.5 flex items-center justify-between bg-slate-950/80 backdrop-blur-xl border-b border-slate-800">
-        {/* Brand Logo & Name */}
-        <button
+    <header className="fixed top-0 inset-x-0 z-50 bg-[#08080A]/85 backdrop-blur-md border-b border-neutral-800/80 transition-all">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+        {/* Brand Monogram & Name */}
+        <a
+          href="#home"
           onClick={(e) => handleLinkClick(e, 'home', 0)}
-          className="flex items-center gap-2.5 text-left focus:outline-none cursor-pointer"
+          className="group flex items-center gap-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-sun rounded-md p-1 cursor-pointer"
         >
-          <img src={logoImg} alt="DE Logo" className="w-8 h-8 rounded-full border border-slate-700" />
-          <span className="font-bold text-sm tracking-tight text-[#F8FAFC]">
-            Daniel Edith-Agoye
-          </span>
-        </button>
+          <img
+            src={logoImg}
+            alt="Daniel Edith-Agoye Monogram"
+            className="w-8 h-8 rounded-full border border-neutral-700/80 group-hover:border-accent-sun transition-colors"
+          />
+          <div className="flex flex-col">
+            <span className="font-bold text-sm tracking-tight text-[#F5F5F7] group-hover:text-accent-sun transition-colors">
+              Daniel <span className="text-neutral-400 font-normal">Edith-Agoye</span>
+            </span>
+          </div>
+        </a>
+
+        {/* Desktop Minimal Nav Links */}
+        <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
+          {items.map((item, index) => {
+            const isActive = activeSectionIndex === index;
+            return (
+              <a
+                key={index}
+                href={item.href}
+                onClick={(e) => handleLinkClick(e, item.id, index)}
+                className={`relative py-1 text-xs tracking-wider uppercase font-semibold transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-sun rounded ${
+                  isActive
+                    ? 'text-[#F5F5F7] font-bold'
+                    : 'text-neutral-400 hover:text-accent-star'
+                }`}
+              >
+                <span>{item.label}</span>
+                {isActive && (
+                  <span
+                    className="absolute -bottom-1.5 left-0 w-full h-[2px] bg-accent-sun rounded-full"
+                  />
+                )}
+              </a>
+            );
+          })}
+        </nav>
 
         {/* Mobile Hamburger Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle navigation menu"
-          className="p-2 bg-slate-900 border border-slate-800 rounded-full text-[#ACADBC] hover:text-[#F8FAFC] hover:border-[#78FECF] shadow-md backdrop-blur-md transition-colors focus:outline-none cursor-pointer"
+          aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isOpen}
+          className="md:hidden p-2 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-accent-sun hover:border-accent-star focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-sun transition-colors cursor-pointer"
         >
-          {isOpen ? <X className="w-5 h-5 text-[#78FECF]" /> : <Menu className="w-5 h-5" />}
+          {isOpen ? <X className="w-5 h-5 text-accent-sun" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
@@ -155,27 +172,29 @@ export default function Navbar() {
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="fixed inset-0 bg-black/75 backdrop-blur-md z-40 md:hidden"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 md:hidden"
+          aria-hidden="true"
         />
       )}
 
       {/* Mobile Drawer Navigation Sidebar */}
       <aside
-        className={`fixed inset-y-0 right-0 w-72 max-w-[85vw] bg-slate-950 border-l border-slate-800 p-6 z-50 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between backdrop-blur-2xl shadow-2xl will-change-transform ${
+        className={`fixed inset-y-0 right-0 w-72 max-w-[85vw] bg-[#08080A] border-l border-neutral-800 p-6 z-50 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between shadow-2xl ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
+        aria-label="Mobile Navigation"
       >
         <div>
           {/* Drawer Header */}
-          <div className="flex items-center justify-between pb-6 border-b border-slate-800">
+          <div className="flex items-center justify-between pb-6 border-b border-neutral-800">
             <div className="flex items-center gap-2.5">
-              <img src={logoImg} alt="Logo" className="w-7 h-7 rounded-full border border-slate-700" />
-              <span className="font-bold text-sm text-[#F8FAFC]">Navigation</span>
+              <img src={logoImg} alt="Logo" className="w-7 h-7 rounded-full border border-neutral-700" />
+              <span className="font-bold text-sm text-[#F5F5F7]">Navigation</span>
             </div>
             <button
               onClick={() => setIsOpen(false)}
               aria-label="Close navigation menu"
-              className="p-1.5 text-[#ACADBC] hover:text-[#F8FAFC] rounded-lg transition-colors focus:outline-none cursor-pointer"
+              className="p-1.5 text-neutral-400 hover:text-accent-sun rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-sun cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -191,13 +210,13 @@ export default function Navbar() {
                   key={index}
                   href={item.href}
                   onClick={(e) => handleLinkClick(e, item.id, index)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200 ${
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                     isActive
-                      ? 'bg-[#2B2D42] border border-[#78FECF]/40 text-[#78FECF] font-semibold shadow-sm'
-                      : 'text-[#ACADBC] hover:text-[#F8FAFC] hover:bg-[#2B2D42]/40 border border-transparent'
+                      ? 'bg-neutral-900 border border-neutral-700 text-accent-sun font-semibold'
+                      : 'text-neutral-400 hover:text-[#F5F5F7] hover:bg-neutral-900/60'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#78FECF]' : 'text-[#ACADBC]'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-accent-sun' : 'text-neutral-400'}`} />
                   <span>{item.label}</span>
                 </a>
               );
@@ -206,15 +225,16 @@ export default function Navbar() {
         </div>
 
         {/* Drawer Footer */}
-        <div className="pt-6 border-t border-slate-800 flex flex-col gap-3">
-          <button
+        <div className="pt-6 border-t border-neutral-800">
+          <a
+            href="#contact"
             onClick={(e) => handleLinkClick(e, 'contact', 4)}
-            className="w-full bg-[#0C7489] hover:bg-[#0C7489]/90 hover:shadow-[0_0_15px_rgba(172,252,217,0.35)] text-[#F8FAFC] font-bold py-2.5 px-4 rounded-xl text-xs text-center shadow-md cursor-pointer transition-all border border-transparent hover:border-[#ACFCD9]"
+            className="block w-full py-2.5 px-4 rounded-lg text-xs font-bold text-center bg-accent-sun text-[#08080A] hover:bg-accent-sun/90 shadow-sun-glow transition-all"
           >
             Get In Touch
-          </button>
+          </a>
         </div>
       </aside>
-    </>
+    </header>
   );
 }

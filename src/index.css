@@ -10,71 +10,53 @@
 
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    background-color: #020617;
-    color: #f8fafc;
+    background-color: #08080A;
+    color: #F5F5F7;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
   }
+
+  /* Accessibility focus visible state */
+  :focus-visible {
+    outline: 2px solid #FFB547;
+    outline-offset: 3px;
+  }
 }
 
 /* Custom Sleek Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: #08080A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #27272A;
   border-radius: 9999px;
-  border: 2px solid #020617;
+  border: 1px solid #08080A;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0C7489;
+  background: #FFB547;
 }
 
-/* Custom Glassmorphism styles using Space Indigo and Pale Slate */
-.glass-panel {
-  background: rgba(43, 45, 66, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(172, 173, 188, 0.15);
-}
-
-.glass-panel-interactive {
-  background: rgba(43, 45, 66, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(172, 173, 188, 0.15);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-panel-interactive:hover {
-  border-color: rgba(120, 254, 207, 0.45);
-  box-shadow: 0 10px 30px -10px rgba(120, 254, 207, 0.2);
-  transform: translateY(-4px);
-}
-
-.text-gradient-cool {
-  background: linear-gradient(135deg, #78FECF 0%, #ACFCD9 50%, #0C7489 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-aquamarine {
-  background: linear-gradient(135deg, #78FECF 0%, #ACFCD9 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-cerulean {
-  background: linear-gradient(135deg, #ACFCD9 0%, #0C7489 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,4 +1,4 @@
-import { ArrowDown, Mail, FolderGit2 } from './Icons';
+import { ArrowDown, ArrowUpRight, FolderGit2 } from './Icons';
 
 function Hero() {
   const scrollToSection = (id) => {
@@ -11,54 +11,50 @@ function Hero() {
   return (
     <section 
       id="home" 
-      className="relative min-h-[85vh] flex flex-col items-center justify-center text-center px-6 md:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 md:pb-24 max-w-5xl mx-auto w-full"
+      className="relative min-h-[85vh] flex items-center px-6 md:px-12 pt-28 pb-16 md:py-32 max-w-7xl mx-auto w-full"
     >
-      {/* Main Headline - Bold, Crisp High-Contrast Typography */}
-      <h1 className="text-5xl sm:text-7xl md:text-8xl font-black text-[#F8FAFC] tracking-tight leading-[1.05] max-w-5xl">
-        Daniel Edith-Agoye
-      </h1>
+      {/* Left-Aligned Hero Content */}
+      <div className="max-w-3xl text-left flex flex-col items-start z-10">
+        
+        {/* Main Headline - Daniel in accent-sun, Edith-Agoye in white on the second line */}
+        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[1.08]">
+          <span className="block text-accent-sun">Daniel</span>
+          <span className="block text-[#F5F5F7] whitespace-nowrap">Edith&#8209;Agoye</span>
+        </h1>
 
-      {/* Subheading with Aquamarine Tech Stack Badges */}
-      <p className="text-xl sm:text-2xl md:text-3xl text-[#ACADBC] font-medium mt-6 max-w-3xl tracking-wide leading-snug">
-        Frontend Developer —{' '}
-        <span className="text-[#78FECF] font-bold">
-          React
-        </span>
-        ,{' '}
-        <span className="text-[#78FECF] font-bold">
-          Tailwind
-        </span>
-        ,{' '}
-        <span className="text-[#78FECF] font-bold">
-          Supabase
-        </span>
-      </p>
+        {/* Role Subtitle with neutral gray and starlight blue highlights */}
+        <p className="text-base sm:text-lg md:text-xl text-neutral-400 font-medium mt-4 tracking-wide leading-snug">
+          Frontend Developer —{' '}
+          <span className="text-accent-star font-semibold">React</span>,{' '}
+          <span className="text-accent-star font-semibold">Tailwind</span>,{' '}
+          <span className="text-accent-star font-semibold">Supabase</span>
+        </p>
+        {/* Action Row - Visible Solid Amber Button & Aligned Text Link */}
+        <div className="flex flex-row items-center gap-6 mt-8 w-full sm:w-auto">
+          {/* Primary Action Button (Solid Amber) */}
+          <button
+            type="button"
+            onClick={() => scrollToSection('projects')}
+            className="inline-flex items-center justify-center gap-2.5 bg-accent-sun hover:bg-accent-sun/90 text-[#08080A] font-bold py-3.5 px-7 rounded-lg shadow-sun-glow hover:shadow-[0_0_25px_rgba(255,181,71,0.45)] transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-sun focus-visible:ring-offset-2 focus-visible:ring-offset-[#08080A]"
+          >
+            <FolderGit2 className="w-4 h-4 text-[#08080A]" />
+            <span>View Projects</span>
+            <ArrowDown className="w-4 h-4 text-[#08080A]" />
+          </button>
 
-      {/* Concise Bio */}
-      <p className="text-base sm:text-lg md:text-xl text-[#ACADBC] mt-5 max-w-2xl leading-relaxed font-normal">
-        Crafting fast, accessible, and responsive web applications with modern frontend engineering and intuitive user experiences.
-      </p>
-
-      {/* Call To Action Buttons */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10 w-full sm:w-auto">
-        {/* Primary Action: Cerulean CTA with Light Aquamarine Hover Glow */}
-        <button
-          onClick={() => scrollToSection('projects')}
-          className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#0C7489] hover:bg-[#0C7489]/90 border border-transparent hover:border-[#ACFCD9] text-[#F8FAFC] font-bold py-3.5 px-8 rounded-full shadow-md hover:shadow-[0_0_25px_rgba(172,252,217,0.35)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base cursor-pointer"
-        >
-          <FolderGit2 className="w-4 h-4 text-[#F8FAFC] transition-transform group-hover:rotate-12" />
-          <span>View Projects</span>
-          <ArrowDown className="w-4 h-4 text-[#F8FAFC] transition-transform group-hover:translate-y-0.5" />
-        </button>
-
-        {/* Secondary Action: Subtle Dark Glass with Pale Slate Border and Text */}
-        <button
-          onClick={() => scrollToSection('contact')}
-          className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-slate-900/80 hover:bg-[#2B2D42]/80 text-[#ACADBC] hover:text-[#F8FAFC] font-semibold py-3.5 px-8 rounded-full border border-[#ACADBC]/30 hover:border-[#78FECF] hover:shadow-[0_0_15px_rgba(120,254,207,0.2)] backdrop-blur-md transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base cursor-pointer"
-        >
-          <Mail className="w-4 h-4 text-[#ACADBC] group-hover:text-[#78FECF] transition-colors" />
-          <span>Contact Me</span>
-        </button>
+          {/* Secondary Action: "Get in touch" Text Link */}
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('contact');
+            }}
+            className="inline-flex items-center gap-1.5 text-[#F5F5F7] hover:text-accent-sun text-sm sm:text-base font-semibold transition-colors duration-200 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-sun py-2 px-1 rounded"
+          >
+            <span>Get in touch</span>
+            <ArrowUpRight className="w-4 h-4 text-accent-sun group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
+        </div>
       </div>
     </section>
   );

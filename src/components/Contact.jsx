@@ -20,7 +20,7 @@ function Contact() {
     message: ''
   });
   const [copied, setCopied] = useState(false);
-  const [status, setStatus] = useState(null); // 'success' | null
+  const [status, setStatus] = useState(null);
 
   const targetEmail = 'mdon85329@gmail.com';
 
@@ -55,39 +55,39 @@ function Contact() {
   return (
     <section id="contact" className="py-20 md:py-28 px-6 md:px-12 max-w-7xl mx-auto w-full">
       {/* Section Header */}
-      <div className="flex flex-col items-center text-center mb-14">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#F8FAFC] tracking-tight">
-          Let's Work <span className="text-[#78FECF]">Together</span>
+      <div className="flex flex-col items-start md:items-center text-left md:text-center mb-14">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#F5F5F7] tracking-tight">
+          Let's Work <span className="text-accent-sun">Together</span>
         </h2>
-        <p className="text-sm sm:text-base text-[#ACADBC] max-w-xl mt-3 font-normal">
+        <p className="text-sm sm:text-base text-neutral-400 max-w-xl mt-3 font-normal">
           Have an exciting project, freelance opportunity, or just want to connect? Send a message or reach out directly!
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-5xl mx-auto items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-5xl mx-auto items-start">
         {/* Contact Form Column */}
-        <div className="lg:col-span-7 bg-slate-900/60 backdrop-blur-xl border border-[#ACADBC]/20 hover:border-[#ACFCD9]/40 rounded-3xl p-6 sm:p-8 shadow-xl transition-all duration-300">
+        <div className="lg:col-span-7 bg-neutral-900/70 border border-neutral-800 hover:border-accent-star/40 rounded-2xl p-6 sm:p-8 shadow-xl transition-colors duration-300">
           <div className="flex items-center gap-2.5 mb-6">
-            <div className="w-9 h-9 rounded-xl bg-[#2B2D42] border border-[#ACADBC]/25 flex items-center justify-center text-[#78FECF]">
+            <div className="w-9 h-9 rounded-lg bg-neutral-950 border border-neutral-800 flex items-center justify-center text-accent-star">
               <MessageSquare className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-lg sm:text-xl font-bold text-[#F8FAFC]">
+              <h3 className="text-lg sm:text-xl font-bold text-[#F5F5F7]">
                 Send a Message
               </h3>
-              <p className="text-xs text-[#ACADBC]">
+              <p className="text-xs text-neutral-400">
                 Directly opens your mail client
               </p>
             </div>
           </div>
 
           {status === 'success' ? (
-            <div className="p-6 rounded-2xl bg-slate-950/80 border border-[#ACADBC]/20 text-center flex flex-col items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-[#2B2D42] border border-[#78FECF]/40 flex items-center justify-center text-[#78FECF]">
+            <div className="p-6 rounded-xl bg-neutral-950 border border-neutral-800 text-center flex flex-col items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-neutral-900 border border-accent-sun/60 flex items-center justify-center text-accent-sun">
                 <Check className="w-6 h-6" />
               </div>
-              <h4 className="text-lg font-bold text-[#F8FAFC]">Mail Client Triggered!</h4>
-              <p className="text-sm text-[#ACADBC] max-w-md">
+              <h4 className="text-lg font-bold text-[#F5F5F7]">Mail Client Triggered!</h4>
+              <p className="text-sm text-neutral-400 max-w-md">
                 Your default mail client has opened with your pre-filled inquiry. You can also copy my email directly below.
               </p>
               <button
@@ -96,7 +96,7 @@ function Contact() {
                   setStatus(null);
                   setFormData({ name: '', email: '', message: '' });
                 }}
-                className="mt-2 text-xs font-semibold text-[#78FECF] hover:text-[#ACFCD9] underline underline-offset-4 cursor-pointer"
+                className="mt-2 text-xs font-semibold text-accent-sun hover:underline underline-offset-4 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent-sun"
               >
                 Send another message
               </button>
@@ -105,11 +105,11 @@ function Contact() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               {/* Name Field */}
               <div>
-                <label htmlFor="contact-name" className="block text-xs font-semibold text-[#ACADBC] mb-1.5 ml-1">
+                <label htmlFor="contact-name" className="block text-xs font-semibold text-neutral-400 mb-1.5 ml-1">
                   Your Name
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#ACADBC]/60">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-500">
                     <User className="w-4 h-4" />
                   </div>
                   <input
@@ -120,18 +120,18 @@ function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="e.g. Alex Morgan"
-                    className="w-full bg-slate-950/80 border border-[#ACADBC]/20 rounded-xl pl-10 pr-4 py-3 text-sm text-[#F8FAFC] placeholder-[#ACADBC]/50 focus:outline-none focus:border-[#78FECF] focus:ring-1 focus:ring-[#78FECF] transition-all"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg pl-10 pr-4 py-3 text-sm text-[#F5F5F7] placeholder-neutral-500 focus:outline-none focus:border-accent-sun focus:ring-1 focus:ring-accent-sun transition-colors"
                   />
                 </div>
               </div>
 
               {/* Email Field */}
               <div>
-                <label htmlFor="contact-email" className="block text-xs font-semibold text-[#ACADBC] mb-1.5 ml-1">
+                <label htmlFor="contact-email" className="block text-xs font-semibold text-neutral-400 mb-1.5 ml-1">
                   Email Address
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#ACADBC]/60">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-500">
                     <AtSign className="w-4 h-4" />
                   </div>
                   <input
@@ -142,14 +142,14 @@ function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="alex@example.com"
-                    className="w-full bg-slate-950/80 border border-[#ACADBC]/20 rounded-xl pl-10 pr-4 py-3 text-sm text-[#F8FAFC] placeholder-[#ACADBC]/50 focus:outline-none focus:border-[#78FECF] focus:ring-1 focus:ring-[#78FECF] transition-all"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg pl-10 pr-4 py-3 text-sm text-[#F5F5F7] placeholder-neutral-500 focus:outline-none focus:border-accent-sun focus:ring-1 focus:ring-accent-sun transition-colors"
                   />
                 </div>
               </div>
 
               {/* Message Field */}
               <div>
-                <label htmlFor="contact-message" className="block text-xs font-semibold text-[#ACADBC] mb-1.5 ml-1">
+                <label htmlFor="contact-message" className="block text-xs font-semibold text-neutral-400 mb-1.5 ml-1">
                   Message
                 </label>
                 <textarea
@@ -160,17 +160,17 @@ function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Tell me about your project or inquiry..."
-                  className="w-full bg-slate-950/80 border border-[#ACADBC]/20 rounded-xl p-3.5 text-sm text-[#F8FAFC] placeholder-[#ACADBC]/50 focus:outline-none focus:border-[#78FECF] focus:ring-1 focus:ring-[#78FECF] transition-all resize-none"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3.5 text-sm text-[#F5F5F7] placeholder-neutral-500 focus:outline-none focus:border-accent-sun focus:ring-1 focus:ring-accent-sun transition-colors resize-none"
                 />
               </div>
 
-              {/* Submit Button - Cerulean with Light Aquamarine Hover */}
+              {/* Primary Submit Button: Amber */}
               <button
                 type="submit"
-                className="group mt-2 w-full inline-flex items-center justify-center gap-2 bg-[#0C7489] hover:bg-[#0C7489]/90 border border-transparent hover:border-[#ACFCD9] text-[#F8FAFC] font-bold py-3.5 px-6 rounded-xl shadow-md hover:shadow-[0_0_20px_rgba(172,252,217,0.35)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-sm cursor-pointer"
+                className="mt-2 w-full inline-flex items-center justify-center gap-2 bg-accent-sun hover:bg-accent-sun/90 text-[#08080A] font-bold py-3.5 px-6 rounded-lg shadow-sun-glow transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-sun"
               >
                 <span>Send Message</span>
-                <Send className="w-4 h-4 text-[#F8FAFC] transition-transform group-hover:translate-x-1" />
+                <Send className="w-4 h-4 text-[#08080A]" />
               </button>
             </form>
           )}
@@ -179,37 +179,37 @@ function Contact() {
         {/* Direct Email Display & Social Links Column */}
         <div className="lg:col-span-5 flex flex-col gap-6 w-full">
           {/* Direct Email Card with 1-Click Copy */}
-          <div className="bg-slate-900/60 backdrop-blur-xl border border-[#ACADBC]/20 hover:border-[#ACFCD9]/40 rounded-3xl p-6 shadow-xl transition-all duration-300">
+          <div className="bg-neutral-900/70 border border-neutral-800 hover:border-accent-star/40 rounded-2xl p-6 shadow-xl transition-colors duration-300">
             <div className="flex items-center gap-2.5 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-[#2B2D42] border border-[#ACADBC]/25 flex items-center justify-center text-[#78FECF]">
+              <div className="w-8 h-8 rounded-lg bg-neutral-950 border border-neutral-800 flex items-center justify-center text-accent-star">
                 <Mail className="w-4 h-4" />
               </div>
-              <h4 className="text-sm font-bold text-[#F8FAFC] uppercase tracking-wider">
+              <h4 className="text-sm font-bold text-[#F5F5F7] uppercase tracking-wider">
                 Direct Email
               </h4>
             </div>
 
-            <p className="text-xs text-[#ACADBC] mb-3">
+            <p className="text-xs text-neutral-400 mb-3">
               Feel free to email me directly or copy the address below:
             </p>
 
-            <div className="flex items-center justify-between gap-2 p-3 bg-slate-950 border border-[#ACADBC]/20 rounded-xl">
-              <span className="text-xs sm:text-sm font-mono text-[#F8FAFC] select-all truncate">
+            <div className="flex items-center justify-between gap-2 p-3 bg-neutral-950 border border-neutral-800 rounded-lg">
+              <span className="text-xs sm:text-sm font-mono text-[#F5F5F7] select-all truncate">
                 {targetEmail}
               </span>
               <button
                 type="button"
                 onClick={handleCopyEmail}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0C7489] hover:bg-[#0C7489]/90 border border-transparent hover:border-[#ACFCD9] text-[#F8FAFC] text-xs font-bold transition-all duration-200 cursor-pointer flex-shrink-0 shadow-sm hover:shadow-[0_0_12px_rgba(172,252,217,0.35)]"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-accent-sun hover:bg-accent-sun/90 text-[#08080A] text-xs font-bold transition-all duration-200 cursor-pointer flex-shrink-0 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-sun"
               >
                 {copied ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-[#F8FAFC]" />
+                    <Check className="w-3.5 h-3.5 text-[#08080A]" />
                     <span>Copied!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 text-[#F8FAFC]" />
+                    <Copy className="w-3.5 h-3.5 text-[#08080A]" />
                     <span>Copy</span>
                   </>
                 )}
@@ -218,8 +218,8 @@ function Contact() {
           </div>
 
           {/* Social Links Card */}
-          <div className="bg-slate-900/60 backdrop-blur-xl border border-[#ACADBC]/20 hover:border-[#ACFCD9]/40 rounded-3xl p-6 shadow-xl transition-all duration-300">
-            <h4 className="text-sm font-bold text-[#F8FAFC] uppercase tracking-wider mb-4">
+          <div className="bg-neutral-900/70 border border-neutral-800 hover:border-accent-star/40 rounded-2xl p-6 shadow-xl transition-colors duration-300">
+            <h4 className="text-sm font-bold text-[#F5F5F7] uppercase tracking-wider mb-4">
               Connect On Socials
             </h4>
 
@@ -229,13 +229,13 @@ function Contact() {
                 href="https://github.com/Donmane"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-between p-3.5 rounded-xl bg-slate-950/70 hover:bg-[#2B2D42]/70 border border-[#ACADBC]/20 hover:border-[#78FECF] hover:text-[#78FECF] text-[#ACADBC] transition-all duration-200"
+                className="group flex items-center justify-between p-3.5 rounded-lg bg-neutral-950 border border-neutral-800 hover:border-accent-star/50 text-neutral-300 hover:text-accent-sun transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-sun"
               >
                 <div className="flex items-center gap-2.5">
-                  <Github className="w-4 h-4 text-[#ACADBC] group-hover:text-[#78FECF] group-hover:scale-105 transition-all" />
-                  <span className="text-xs font-semibold text-[#F8FAFC]">GitHub</span>
+                  <Github className="w-4 h-4 text-neutral-400 group-hover:text-accent-sun transition-colors" />
+                  <span className="text-xs font-semibold text-[#F5F5F7]">GitHub</span>
                 </div>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#ACADBC]/60 group-hover:text-[#78FECF] transition-colors" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-neutral-500 group-hover:text-accent-sun transition-colors" />
               </a>
 
               {/* LinkedIn */}
@@ -243,13 +243,13 @@ function Contact() {
                 href="https://www.linkedin.com/in/daniel-edith-agoye-30ba3a411"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-between p-3.5 rounded-xl bg-slate-950/70 hover:bg-[#2B2D42]/70 border border-[#ACADBC]/20 hover:border-[#78FECF] hover:text-[#78FECF] text-[#ACADBC] transition-all duration-200"
+                className="group flex items-center justify-between p-3.5 rounded-lg bg-neutral-950 border border-neutral-800 hover:border-accent-star/50 text-neutral-300 hover:text-accent-sun transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-sun"
               >
                 <div className="flex items-center gap-2.5">
-                  <Linkedin className="w-4 h-4 text-[#ACADBC] group-hover:text-[#78FECF] group-hover:scale-105 transition-all" />
-                  <span className="text-xs font-semibold text-[#F8FAFC]">LinkedIn</span>
+                  <Linkedin className="w-4 h-4 text-neutral-400 group-hover:text-accent-sun transition-colors" />
+                  <span className="text-xs font-semibold text-[#F5F5F7]">LinkedIn</span>
                 </div>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#ACADBC]/60 group-hover:text-[#78FECF] transition-colors" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-neutral-500 group-hover:text-accent-sun transition-colors" />
               </a>
 
               {/* Fiverr */}
@@ -257,16 +257,16 @@ function Contact() {
                 href="https://www.fiverr.com/danny_alvis/buying?source=avatar_menu_profile"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-between p-3.5 rounded-xl bg-slate-950/70 hover:bg-[#2B2D42]/70 border border-[#ACADBC]/20 hover:border-[#78FECF] hover:text-[#78FECF] text-[#ACADBC] transition-all duration-200 sm:col-span-2"
+                className="group flex items-center justify-between p-3.5 rounded-lg bg-neutral-950 border border-neutral-800 hover:border-accent-star/50 text-neutral-300 hover:text-accent-sun transition-colors duration-200 sm:col-span-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-sun"
               >
                 <div className="flex items-center gap-2.5">
-                  <Briefcase className="w-4 h-4 text-[#ACADBC] group-hover:text-[#78FECF] group-hover:scale-105 transition-all" />
+                  <Briefcase className="w-4 h-4 text-neutral-400 group-hover:text-accent-sun transition-colors" />
                   <div className="flex flex-col text-left">
-                    <span className="text-xs font-semibold text-[#F8FAFC]">Fiverr Freelance</span>
-                    <span className="text-[10px] text-[#ACADBC]/80">Hire for custom frontend development</span>
+                    <span className="text-xs font-semibold text-[#F5F5F7]">Fiverr Freelance</span>
+                    <span className="text-[10px] text-neutral-400">Custom frontend development & engineering</span>
                   </div>
                 </div>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#ACADBC]/60 group-hover:text-[#78FECF] transition-colors" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-neutral-500 group-hover:text-accent-sun transition-colors" />
               </a>
             </div>
           </div>

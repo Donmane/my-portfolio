@@ -10,7 +10,7 @@ import Constellations from "./components/Constellations";
 
 function App() {
   return (
-    <div className="relative min-h-screen bg-zinc-950 overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#08080A] text-[#F5F5F7] overflow-x-hidden">
       {/* Deep Space Background Canvas Layers */}
       <div className="fixed inset-0 w-screen h-screen z-0 pointer-events-none">
         <Galaxy />

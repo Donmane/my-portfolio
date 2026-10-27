@@ -87,7 +87,7 @@ export default function TiltedCard({
   return (
     <figure
       ref={ref}
-      className="relative w-full h-full [perspective:900px] flex flex-col items-center justify-center overflow-hidden rounded-xl bg-zinc-950/60 border border-[#ACADBC]/20 group/card"
+      className="relative w-full h-full [perspective:900px] flex flex-col items-center justify-center overflow-hidden rounded-xl bg-neutral-950/60 border border-neutral-800 group/card"
       style={{
         height: containerHeight,
         width: containerWidth
@@ -115,7 +115,7 @@ export default function TiltedCard({
         />
 
         {/* Subtle Gradient Shadow Overlay at bottom of image */}
-        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent rounded-xl pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent rounded-xl pointer-events-none" />
 
         {displayOverlayContent && overlayContent && (
           <motion.div className="absolute top-0 left-0 z-[2] will-change-transform [transform:translateZ(30px)]">
@@ -126,7 +126,7 @@ export default function TiltedCard({
 
       {showTooltip && (
         <motion.figcaption
-          className="pointer-events-none absolute left-3 top-3 rounded-full bg-[#2B2D42]/90 border border-[#ACADBC]/30 px-3 py-1 text-xs font-medium text-[#F8FAFC] backdrop-blur-md opacity-0 z-[3] hidden sm:block shadow-lg"
+          className="pointer-events-none absolute left-3 top-3 rounded-full bg-neutral-900 border border-neutral-700 px-3 py-1 text-xs font-medium text-[#F5F5F7] opacity-0 z-[3] hidden sm:block shadow-lg"
           style={{
             x: isVisible ? x : 0,
             y: isVisible ? y : 0,
