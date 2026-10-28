@@ -37,7 +37,7 @@ const projects = [
     description: 'An intuitive creative design marketplace where clients can browse, hire, and collaborate with designers who showcase their portfolios and service offerings.',
     tags: ['React', 'JavaScript', 'Responsive UI'],
     image: designora,
-    liveUrl: 'https://designer-marketplace-psi.vercel.app/about',
+    liveUrl: 'https://designer-marketplace-psi.vercel.app',
     githubUrl: 'https://github.com/Donmane/Designer-Marketplace',
     x: 78,
     y: 32,
