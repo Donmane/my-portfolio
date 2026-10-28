@@ -1,0 +1,47 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="amber-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Tilted Planetary Orbit Ring in accent-star #8FB8FF -->
+  <g transform="rotate(-22 50 50)">
+    <ellipse
+      cx="50"
+      cy="50"
+      rx="42"
+      ry="15"
+      stroke="#8FB8FF"
+      stroke-width="2"
+      stroke-linecap="round"
+      fill="none"
+    />
+
+    <!-- Orbiting Sun / Planet in accent-sun #FFB547 with Amber Glow -->
+    <g filter="url(#amber-glow)">
+      <circle cx="82.2" cy="40.4" r="6.5" fill="#FFB547" opacity="0.2" />
+      <circle cx="82.2" cy="40.4" r="4.8" fill="#FFB547" opacity="0.35" />
+      <circle cx="82.2" cy="40.4" r="3.2" fill="#FFB547" />
+      <circle cx="82.2" cy="40.4" r="1.2" fill="#FFF4D6" opacity="0.9" />
+    </g>
+  </g>
+
+  <!-- Clean Geometric "DE" Monogram in White (#F5F5F7) -->
+  <!-- Letter 'D' -->
+  <path
+    d="M 24 32 H 37 C 43.6 32 49 40.1 49 50 C 49 59.9 43.6 68 37 68 H 24 V 32 Z M 30.2 38 V 62 H 36 C 40 62 42.8 56.6 42.8 50 C 42.8 43.4 40 38 36 38 H 30.2 Z"
+    fill="#F5F5F7"
+    fill-rule="evenodd"
+  />
+
+  <!-- Letter 'E' -->
+  <path
+    d="M 53 32 H 76 V 38 H 59.2 V 47 H 72 V 53 H 59.2 V 62 H 76 V 68 H 53 Z"
+    fill="#F5F5F7"
+  />
+</svg>

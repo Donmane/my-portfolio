@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Menu, X, FolderGit2, User, Wrench, Mail, Home } from './Icons';
-import logoImg from '../assets/Logo.png';
+import Logo from './Logo';
 
 const items = [
   { label: 'Home', href: '#home', id: 'home', icon: Home },
@@ -119,11 +119,7 @@ export default function Navbar() {
           onClick={(e) => handleLinkClick(e, 'home', 0)}
           className="group flex items-center gap-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-sun rounded-md p-1 cursor-pointer"
         >
-          <img
-            src={logoImg}
-            alt="Daniel Edith-Agoye Monogram"
-            className="w-8 h-8 rounded-full border border-neutral-700/80 group-hover:border-accent-sun transition-colors"
-          />
+          <Logo className="w-8 h-8 group-hover:scale-105 transition-transform" />
           <div className="flex flex-col">
             <span className="font-bold text-sm tracking-tight text-[#F5F5F7] group-hover:text-accent-sun transition-colors">
               Daniel <span className="text-neutral-400 font-normal">Edith-Agoye</span>
@@ -188,7 +184,7 @@ export default function Navbar() {
           {/* Drawer Header */}
           <div className="flex items-center justify-between pb-6 border-b border-neutral-800">
             <div className="flex items-center gap-2.5">
-              <img src={logoImg} alt="Logo" className="w-7 h-7 rounded-full border border-neutral-700" />
+              <Logo className="w-7 h-7" />
               <span className="font-bold text-sm text-[#F5F5F7]">Navigation</span>
             </div>
             <button

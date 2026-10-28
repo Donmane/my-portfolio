@@ -1,5 +1,5 @@
 import { GraduationCap, MapPin, Target, Terminal } from './Icons';
-import logoImg from '../assets/Logo.png';
+import Logo from './Logo';
 
 function About() {
   const quickFacts = [
@@ -45,15 +45,9 @@ function About() {
           <div className="relative w-full max-w-sm group">
             {/* Clean Neutral Container */}
             <div className="relative bg-neutral-900/70 border border-neutral-800 hover:border-accent-star/40 rounded-2xl p-8 flex flex-col items-center text-center shadow-xl transition-colors duration-300">
-              {/* Avatar Frame */}
+              {/* Celestial Avatar Frame */}
               <div className="relative w-44 h-44 sm:w-52 sm:h-52 mb-6 flex items-center justify-center">
-                <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden p-1.5 bg-neutral-950 border border-neutral-700/80 shadow-md">
-                  <img
-                    src={logoImg}
-                    alt="Daniel Edith-Agoye Avatar Logo"
-                    className="w-full h-full object-cover rounded-full transform group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
+                <Logo className="w-36 h-36 sm:w-44 sm:h-44 transform group-hover:scale-105 transition-transform duration-300 drop-shadow-lg" />
               </div>
 
               <h3 className="text-xl font-bold text-[#F5F5F7] mb-1">

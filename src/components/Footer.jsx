@@ -1,5 +1,5 @@
 import { ArrowUp } from './Icons';
-import logoImg from '../assets/Logo.png';
+import Logo from './Logo';
 
 function Footer() {
   const scrollToTop = () => {
@@ -11,7 +11,7 @@ function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Brand info */}
         <div className="flex items-center gap-3">
-          <img src={logoImg} alt="DE Logo" className="w-8 h-8 rounded-full border border-neutral-700" />
+          <Logo className="w-8 h-8" />
           <div className="flex flex-col text-left">
             <span className="font-bold text-sm text-[#F5F5F7]">Daniel Edith-Agoye</span>
             <span className="text-xs text-neutral-400">Frontend Software Engineer</span>
